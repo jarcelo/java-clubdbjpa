@@ -43,7 +43,7 @@
                         <td class="text-left">${p.transtype}</td>
                         <td class="text-left">${p.transcd}</td>
                         <td class="text-left">${p.transdesc}</td>
-                        <td class="text-left">${p.amt}</td>
+                        <td class="text-left">${p.formattedAmount}</td>
                     </tr>
                 </c:forEach>
             </table>
