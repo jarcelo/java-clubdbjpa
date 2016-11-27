@@ -5,6 +5,7 @@ import business.Member;
 import business.Purchase;
 import business.PurchaseDB;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,13 +76,14 @@ public class ShowPurchasesServlet extends HttpServlet
             if (purchases == null) {
                 msg = "Purchases returned as null<br>";
             } else {
-                msg = "Total purchase(s)" + purchases.size() + "<br>";
+                msg = "Purchase(s) found: " + purchases.size() + "<br>";
                 URL = "/Purchases.jsp";
                 request.setAttribute("pur", purchases);
                 
                 //double balanceDue = PurchaseDB.getBalanceDue(m.getMemid());
+                NumberFormat curr = NumberFormat.getCurrencyInstance();
                 double balanceDue = PurchaseDB.getBalanceDue(m.getMemid(), pd);
-                request.setAttribute("balanceDue", balanceDue);
+                request.setAttribute("balanceDue", curr.format(balanceDue));
             }
         } catch (Exception e) {
             msg += "Servlet error: " + e.getMessage() + "<br>";
