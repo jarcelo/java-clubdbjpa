@@ -1,6 +1,7 @@
 
 package business;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
@@ -47,8 +48,6 @@ public class Purchase
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TransCd", insertable = false, updatable = false)
     private CodesRec codesrec;
-    
-    //private double balanceDue;
     
     public Purchase()
     {
@@ -117,6 +116,10 @@ public class Purchase
     public double getAmt()
     {
         return amt;
+    }
+    
+    public String getFormattedAmount() {
+        return NumberFormat.getCurrencyInstance().format(this.amt);
     }
 
     public void setAmt(double amt)
