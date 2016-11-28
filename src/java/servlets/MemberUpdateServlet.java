@@ -6,6 +6,7 @@ import business.MemberDB;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author josepharcelo
  */
+@WebServlet(name = "MemberUpdateServlet", urlPatterns = {"/MemberUpdate"})
 public class MemberUpdateServlet extends HttpServlet
 {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -22,6 +24,7 @@ public class MemberUpdateServlet extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         String msg = "";
         String URL = "/MemberScreen.jsp";
+
         try {
             Member m = (Member) request.getSession().getAttribute("m");
             Member n = new Member();
@@ -32,7 +35,7 @@ public class MemberUpdateServlet extends HttpServlet
             n.setMemdt(m.getMemdt());
             n.setStatus(m.getStatus());
             n.setPassword(m.getPassword());
-            
+            long newpass = 0;
             try {
                 String lname = request.getParameter("lastname");
                 if (!lname.isEmpty()) {
@@ -54,8 +57,8 @@ public class MemberUpdateServlet extends HttpServlet
                 } else {
                     msg += "Last name field is empty. <br>";
                 }
-                // Users cant change status, memdate
-                long newpass = Long.parseLong(request.getParameter("psswd"));
+                // Users can't change status, memdate (and will be read-only in jsp view)
+                newpass = Long.parseLong(request.getParameter("psswd"));
                 if (newpass > 0) {
                     n.setPassword(newpass);
                 } else {
@@ -70,13 +73,14 @@ public class MemberUpdateServlet extends HttpServlet
                 m = n; //update posted to m
                 msg = MemberDB.updtMember(m);
                 if (!msg.startsWith("Error")) {
+                    m = MemberDB.getMemberById(m.getMemid());
+                    m.setPassattempt(newpass);
                     request.getSession().setAttribute("m", m);
                 }
             }
         } catch (Exception e) {
             msg += "Servlet error: " + e.getMessage() + "<br>";
         }
-        
         request.setAttribute("msg", msg);
         RequestDispatcher disp = getServletContext().getRequestDispatcher(URL);
         disp.forward(request, response);
