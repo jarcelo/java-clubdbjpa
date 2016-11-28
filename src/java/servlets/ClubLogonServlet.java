@@ -4,7 +4,6 @@ package servlets;
 import business.Member;
 import business.MemberDB;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -43,13 +42,12 @@ public class ClubLogonServlet extends HttpServlet
                     msg = "Member authenticated!<br>";
                     URL = "/MemberScreen.jsp";
                     request.getSession().setAttribute("m", m);
-                    //TODO use cookie for session handling
                 }
             }
         } catch (Exception e) {
             msg = "Servlet error :" + e.getMessage();
         }
-        
+       
         // Add cookie for userID
         Cookie uid = new Cookie("userid", userid);
         uid.setMaxAge(60*10);

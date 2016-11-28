@@ -28,7 +28,7 @@ public class MemberDB
             trans.begin();
             em.merge(m);
             trans.commit();
-            msg += "Member Updated.<br>";
+            msg += "Member profile successfully updated!<br>";
         } catch (Exception e) {
             trans.rollback();
             msg = "JPA error: " + e.getMessage() + "<br>";
