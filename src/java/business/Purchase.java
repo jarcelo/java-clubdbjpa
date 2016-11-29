@@ -57,7 +57,6 @@ public class Purchase
         this.transcd = "";
         this.amt = 0;
         this.pid = 0;
-        //this.balanceDue = 0;
     }
 
     public long getPid()
@@ -130,8 +129,4 @@ public class Purchase
     public String getTransdesc() {
         return codesrec.getTransdesc();
     }
-    
-//    public double getBalanceDue() {
-//        return balanceDue;
-//    }
 }

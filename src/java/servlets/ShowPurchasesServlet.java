@@ -30,7 +30,6 @@ public class ShowPurchasesServlet extends HttpServlet
         String month = "", day = "", year = "";
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
         
-        
         try {
             Member m = (Member) request.getSession().getAttribute("m");
             
@@ -38,7 +37,7 @@ public class ShowPurchasesServlet extends HttpServlet
                 month = request.getParameter("month");
             } catch (Exception e) {
                 msg += "Month error: + " + e.getMessage() + "<br>";
-                month =  "";
+                month = "";
             }
             try {
                 day = request.getParameter("day");
@@ -60,12 +59,11 @@ public class ShowPurchasesServlet extends HttpServlet
                     pd = sdf.parse(month+ "-" + day + "-" + year);
                     purchaseDate = sdf.parse(year + "-" + month + "-" + day);
                 } catch (ParseException e) {
-                    pd = null;
-                    purchaseDate = null;
+                        pd = null;
+                        purchaseDate = null;
                 }
             }
             
-            // List purchases
             List<Purchase> purchases = null;
             if (pd == null) {
                 purchases = PurchaseDB.getPurchases(m.getMemid());
@@ -80,7 +78,6 @@ public class ShowPurchasesServlet extends HttpServlet
                 URL = "/Purchases.jsp";
                 request.setAttribute("pur", purchases);
                 
-                //double balanceDue = PurchaseDB.getBalanceDue(m.getMemid());
                 NumberFormat curr = NumberFormat.getCurrencyInstance();
                 double balanceDue = PurchaseDB.getBalanceDue(m.getMemid(), pd);
                 request.setAttribute("balanceDue", curr.format(balanceDue));
@@ -135,5 +132,4 @@ public class ShowPurchasesServlet extends HttpServlet
     {
         return "Short description";
     }// </editor-fold>
-
 }

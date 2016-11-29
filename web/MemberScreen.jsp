@@ -27,7 +27,7 @@
     <body class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="text-center">&nbsp;Club Member Data</h1>
+                <h3 class="text-center"><i class="fa fa-list"></i>&nbsp;Club Member Data</h1>
             </div>
             <br>
             <br>

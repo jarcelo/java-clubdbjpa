@@ -24,7 +24,7 @@ public class MemberUpdateServlet extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         String msg = "";
         String URL = "/MemberScreen.jsp";
-
+        
         try {
             Member m = (Member) request.getSession().getAttribute("m");
             Member n = new Member();
@@ -37,25 +37,27 @@ public class MemberUpdateServlet extends HttpServlet
             n.setPassword(m.getPassword());
             long newpass = 0;
             try {
+                String regexNamePattern = "^\\p{L}+[\\p{L}\\p{Z}\\p{P}]{0,}";
+                
                 String lname = request.getParameter("lastname");
-                if (!lname.isEmpty()) {
+                if (!lname.isEmpty() && lname.matches(regexNamePattern)) {
                     n.setLastnm(lname);
                 } else {
-                    msg += "Last name field is empty. <br>";
+                    msg += "Last name field is empty or has invalid character(s). <br>";
                 }
                 
                 String fname = request.getParameter("firstname");
-                if (!fname.isEmpty()) {
+                if (!fname.isEmpty() && fname.matches(regexNamePattern)) {
                     n.setFirstnm(fname);
                 } else {
-                    msg += "First name field is empty. <br>";
+                    msg += "First name field is empty or has invalid character(s). <br>";
                 }
                 
                 String mname = request.getParameter("middlename");
-                if (!mname.isEmpty()) {
+                if (!mname.isEmpty() && mname.matches(regexNamePattern)) {
                     n.setMiddlenm(mname);
                 } else {
-                    msg += "Last name field is empty. <br>";
+                    msg += "Middle name field is empty or has invalid character(s). <br>";
                 }
                 // Users can't change status, memdate (and will be read-only in jsp view)
                 newpass = Long.parseLong(request.getParameter("psswd"));
