@@ -28,39 +28,39 @@ public class MemberUpdateServlet extends HttpServlet
         try {
             Member m = (Member) request.getSession().getAttribute("m");
             Member n = new Member();
-            n.setMemid(m.getMemid());
-            n.setLastnm(m.getLastnm());
-            n.setFirstnm(m.getFirstnm());
-            n.setMiddlenm(m.getMiddlenm());
-            n.setMemdt(m.getMemdt());
+            n.setMemberId(m.getMemberId());
+            n.setLastName(m.getLastName());
+            n.setFirstName(m.getFirstName());
+            n.setMiddleName(m.getMiddleName());
+            n.setMembershipDate(m.getMembershipDate());
             n.setStatus(m.getStatus());
             n.setPassword(m.getPassword());
             long newpass = 0;
             try {
                 String regexNamePattern = "^\\p{L}+[\\p{L}\\p{Z}\\p{P}]{0,}";
                 
-                String lname = request.getParameter("lastname");
+                String lname = request.getParameter("lastName");
                 if (!lname.isEmpty() && lname.matches(regexNamePattern)) {
-                    n.setLastnm(lname);
+                    n.setLastName(lname);
                 } else {
                     msg += "Last name field is empty or has invalid character(s). <br>";
                 }
                 
-                String fname = request.getParameter("firstname");
+                String fname = request.getParameter("firstName");
                 if (!fname.isEmpty() && fname.matches(regexNamePattern)) {
-                    n.setFirstnm(fname);
+                    n.setFirstName(fname);
                 } else {
                     msg += "First name field is empty or has invalid character(s). <br>";
                 }
                 
-                String mname = request.getParameter("middlename");
+                String mname = request.getParameter("middleName");
                 if (!mname.isEmpty() && mname.matches(regexNamePattern)) {
-                    n.setMiddlenm(mname);
+                    n.setMiddleName(mname);
                 } else {
                     msg += "Middle name field is empty or has invalid character(s). <br>";
                 }
                 // Users can't change status, memdate (and will be read-only in jsp view)
-                newpass = Long.parseLong(request.getParameter("psswd"));
+                newpass = Long.parseLong(request.getParameter("password"));
                 if (newpass > 0) {
                     n.setPassword(newpass);
                 } else {
@@ -75,8 +75,8 @@ public class MemberUpdateServlet extends HttpServlet
                 m = n; //update posted to m
                 msg = MemberDB.updtMember(m);
                 if (!msg.startsWith("Error")) {
-                    m = MemberDB.getMemberById(m.getMemid());
-                    m.setPassattempt(newpass);
+                    m = MemberDB.getMemberById(m.getMemberId());
+                    m.setPasswordAttempt(newpass);
                     request.getSession().setAttribute("m", m);
                 }
             }

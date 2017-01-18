@@ -23,10 +23,10 @@
             </div>
             <br>
             <div class="form-group">
-                <label for="userid" class="col-sm-2 control-label">User ID</label>
+                <label for="memberId" class="col-sm-2 control-label">User ID</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="userid" name="userid"
-                           placeholder="User ID" value="${empty m.memid ? cookie.userid.value : m.memid}" >
+                    <input type="text" class="form-control" id="userid" name="memberId"
+                           placeholder="Member ID" value="${empty m.memberId ? cookie.userid.value : m.memberId}" >
                 </div>
             </div>
             <div class="form-group">

@@ -16,48 +16,48 @@ public class CodesRec
 {
     @Id
     @Column(name = "TransCd")
-    private String transcd;
+    private String transactionCode;
     
     @Column(name = "TransType")
-    private String transtype;
+    private String transactionType;
     
     @Column(name = "TransDesc")
-    private String transdesc;
+    private String transactionDescription;
 
     public CodesRec()
     {
-        transcd = "";
-        transtype = "";
-        transdesc = "";
+        transactionCode = "";
+        transactionType = "";
+        transactionDescription = "";
     }
 
-    public String getTranscd()
+    public String getTransactionCode()
     {
-        return transcd;
+        return transactionCode;
     }
 
-    public void setTranscd(String transcd)
+    public void setTransactionCode(String transactionCode)
     {
-        this.transcd = transcd;
+        this.transactionCode = transactionCode;
     }
 
-    public String getTranstype()
+    public String getTransactionType()
     {
-        return transtype;
+        return transactionType;
     }
 
-    public void setTranstype(String transtype)
+    public void setTransactionType(String transactionType)
     {
-        this.transtype = transtype;
+        this.transactionType = transactionType;
     }
 
-    public String getTransdesc()
+    public String getTransactionDescription()
     {
-        return transdesc;
+        return transactionDescription;
     }
 
-    public void setTransdesc(String transdesc)
+    public void setTransactionDescription(String transactionDescription)
     {
-        this.transdesc = transdesc;
+        this.transactionDescription = transactionDescription;
     }
 }

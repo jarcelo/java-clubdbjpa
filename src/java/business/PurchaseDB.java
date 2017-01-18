@@ -16,70 +16,68 @@ import javax.persistence.TypedQuery;
 public class PurchaseDB
 {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    public static List<Purchase> getPurchases(String memid) {
+    public static List<Purchase> getPurchases(String memberId) {
           EntityManager em = DBUtil.getEmFactory().createEntityManager();
           //JPA query
-          String qS = "SELECT p FROM Purchase p " + 
-                  "WHERE p.memid = :memid " +
-                  "ORDER BY p.purchdt";
-          TypedQuery<Purchase> q = em.createQuery(qS, Purchase.class);
-          q.setParameter("memid", memid);
-          List<Purchase> p = null;
+          String query = "SELECT p FROM Purchase p " + 
+                  "WHERE p.memberId = :memid " +
+                  "ORDER BY p.purchaseDate";
+          TypedQuery<Purchase> q = em.createQuery(query, Purchase.class);
+          q.setParameter("memid", memberId);
+          List<Purchase> purchases = null;
           try {
-            p = q.getResultList();
-              if (p == null || p.isEmpty()) {
-                  p = null;
+            purchases = q.getResultList();
+              if (purchases == null || purchases.isEmpty()) {
+                  purchases = null;
               }
         } catch (NoResultException e) {
-            p = null;
+            purchases = null;
         } finally {
               em.close();
         }
-        return p;
+        return purchases;
     }
 
-    public static List<Purchase> getPurchases(String memid, Date pd)
+    public static List<Purchase> getPurchases(String memberId, Date purchaseDate)
     {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         //JPA query; java persistence query language JPQL
-        String qS = "SELECT p FROM Purchase p " + 
-                "WHERE p.memid = :memid AND p.purchdt >= :pd " +
-                "ORDER BY p.purchdt";
-        TypedQuery<Purchase> q = em.createQuery(qS, Purchase.class);
-        q.setParameter("memid", memid);
-        q.setParameter("pd", pd);
-        List<Purchase> p = null;
+        String query = "SELECT p FROM Purchase p " + 
+                "WHERE p.memberId = :memid AND p.purchaseDate >= :pd " +
+                "ORDER BY p.purchaseDate";
+        TypedQuery<Purchase> q = em.createQuery(query, Purchase.class);
+        q.setParameter("memid", memberId);
+        q.setParameter("pd", purchaseDate);
+        List<Purchase> purchases = null;
         try {
-          p = q.getResultList();
-            if (p == null || p.isEmpty()) {
-                p = null;
+          purchases = q.getResultList();
+            if (purchases == null || purchases.isEmpty()) {
+                purchases = null;
             }
         } catch (NoResultException e) {
-            p = null;
+            purchases = null;
         } finally {
               em.close();
         }
-        return p;
+        return purchases;
     }
     
-    public static double getBalanceDue(String memid, Date pd) {
-        return getDebitTotal(memid, pd) - getCreditTotal(memid, pd);
+    public static double getBalanceDue(String memberId, Date purchaseDate) {
+        return getDebitTotal(memberId, purchaseDate) - getCreditTotal(memberId, purchaseDate);
     }
     
-    private static double getCreditTotal(String memid, Date pd) {
+    private static double getCreditTotal(String memberId, Date purchaseDate) {
         EntityManager entityManager = DBUtil.getEmFactory().createEntityManager();
-//        String creditQueryString = "SELECT SUM(p.amt) from Purchase p " +
-//                "WHERE p.memid = :memid AND p.transtype = 'C'";
-        String sqlWhereForDate = "";
-        if (pd != null) {
-            sqlWhereForDate = " AND p.purchdt >= :pd";
+        String whereStatement = "";
+        if (purchaseDate != null) {
+            whereStatement = " AND p.purchaseDate >= :pd";
         }
-        String creditQueryString = "SELECT SUM(p.amt) from Purchase p " +
-                "WHERE p.memid = :memid AND p.transtype = 'C'" + sqlWhereForDate;
+        String creditQueryString = "SELECT SUM(p.amount) from Purchase p " +
+                "WHERE p.memberId = :memid AND p.transactionType = 'C'" + whereStatement;
         Query creditQuery = entityManager.createQuery(creditQueryString, Purchase.class);
-        creditQuery.setParameter("memid", memid);
-        if (pd != null) {
-            creditQuery.setParameter("pd", pd);
+        creditQuery.setParameter("memid", memberId);
+        if (purchaseDate != null) {
+            creditQuery.setParameter("pd", purchaseDate);
         }
         double creditAmount = 0;
         try {
@@ -93,18 +91,18 @@ public class PurchaseDB
         return creditAmount;
     }
     
-    private static double getDebitTotal(String memid, Date pd) {
+    private static double getDebitTotal(String memberId, Date purchaseDate) {
         EntityManager entityManager = DBUtil.getEmFactory().createEntityManager();
         String sqlWhereForDate = "";
-        if (pd != null) {
-            sqlWhereForDate = " AND p.purchdt >= :pd ";
+        if (purchaseDate != null) {
+            sqlWhereForDate = " AND p.purchaseDate >= :pd ";
         }
-        String debitQueryString = "SELECT SUM(p.amt) from Purchase p " +
-                "WHERE p.memid = :memid AND p.transtype = 'D'" + sqlWhereForDate;
+        String debitQueryString = "SELECT SUM(p.amount) from Purchase p " +
+                "WHERE p.memberId = :memid AND p.transactionType = 'D'" + sqlWhereForDate;
         Query debitQuery = entityManager.createQuery(debitQueryString, Purchase.class);
-        debitQuery.setParameter("memid", memid);
-        if (pd != null) {
-            debitQuery.setParameter("pd", pd);
+        debitQuery.setParameter("memid", memberId);
+        if (purchaseDate != null) {
+            debitQuery.setParameter("pd", purchaseDate);
         }
         double debitAmount = 0;
         try {

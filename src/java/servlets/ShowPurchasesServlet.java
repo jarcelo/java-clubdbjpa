@@ -66,9 +66,9 @@ public class ShowPurchasesServlet extends HttpServlet
             
             List<Purchase> purchases = null;
             if (pd == null) {
-                purchases = PurchaseDB.getPurchases(m.getMemid());
+                purchases = PurchaseDB.getPurchases(m.getMemberId());
             } else {
-                purchases = PurchaseDB.getPurchases(m.getMemid(), pd);
+                purchases = PurchaseDB.getPurchases(m.getMemberId(), pd);
             }
             
             if (purchases == null) {
@@ -79,7 +79,7 @@ public class ShowPurchasesServlet extends HttpServlet
                 request.setAttribute("pur", purchases);
                 
                 NumberFormat curr = NumberFormat.getCurrencyInstance();
-                double balanceDue = PurchaseDB.getBalanceDue(m.getMemid(), pd);
+                double balanceDue = PurchaseDB.getBalanceDue(m.getMemberId(), pd);
                 request.setAttribute("balanceDue", curr.format(balanceDue));
             }
         } catch (Exception e) {

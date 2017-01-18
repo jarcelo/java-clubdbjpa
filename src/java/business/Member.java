@@ -22,89 +22,89 @@ public class Member
 {
     @Id
     @Column(name = "MemID")
-    private String memid;
+    private String memberId;
     
     @Column(name = "LastName")
-    private String lastnm;
+    private String lastName;
     
     @Column(name = "FirstName")
-    private String firstnm;
+    private String firstName;
     
     @Column(name = "MiddleName")
-    private String middlenm;
+    private String middleName;
     
     @Column(name = "Status")
     private String status;
     
     @Column(name = "MemDt")
     @Temporal(TemporalType.DATE)
-    private Date memdt;
+    private Date membershipDate;
     
     @Column(name = "Password")
     private long password;
     
     @Column(name = "YTD_Total")
-    private double ytdtot;
+    private double YTDTotal;
     
     @Column(name = "YTD_Total_Dt")
     @Temporal(TemporalType.DATE)
-    private Date ytdtotdt;
+    private Date YTDTotalDate;
     
     @Transient
-    private long passattempt;
+    private long passwordAttempt;
 
     public Member()
     {
-        memid = "";
-        lastnm = "";
-        firstnm = "";
-        middlenm = "";
+        memberId = "";
+        lastName = "";
+        firstName = "";
+        middleName = "";
         status = "";
-        memdt = null;
-        ytdtot = 0;
-        ytdtotdt = null;
+        membershipDate = null;
+        YTDTotal = 0;
+        YTDTotalDate = null;
         password = 0;
-        passattempt = -1;
+        passwordAttempt = -1;
     }
 
-    public String getMemid()
+    public String getMemberId()
     {
-        return memid;
+        return memberId;
     }
 
-    public void setMemid(String memid)
+    public void setMemberId(String memberId)
     {
-        this.memid = memid;
+        this.memberId = memberId;
     }
 
-    public String getLastnm()
+    public String getLastName()
     {
-        return lastnm;
+        return lastName;
     }
 
-    public void setLastnm(String lastnm)
+    public void setLastName(String lastName)
     {
-        this.lastnm = lastnm;
+        this.lastName = lastName;
     }
 
-    public String getFirstnm()
+    public String getFirstName()
     {
-        return firstnm;
+        return firstName;
     }
 
-    public void setFirstnm(String firstnm)
+    public void setFirstName(String firstName)
     {
-        this.firstnm = firstnm;
+        this.firstName = firstName;
     }
 
-    public String getMiddlenm()
+    public String getMiddleName()
     {
-        return middlenm;
+        return middleName;
     }
 
-    public void setMiddlenm(String middlenm)
+    public void setMiddleName(String middleName)
     {
-        this.middlenm = middlenm;
+        this.middleName = middleName;
     }
 
     public String getStatus()
@@ -117,19 +117,19 @@ public class Member
         this.status = status;
     }
 
-    public Date getMemdt()
+    public Date getMembershipDate()
     {
-        return memdt;
+        return membershipDate;
     }
 
-    public void setMemdt(Date memdt)
+    public void setMembershipDate(Date membershipDate)
     {
-        this.memdt = memdt;
+        this.membershipDate = membershipDate;
     }
     
     public String getMemdtS() {
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-        return sdf.format(this.memdt);
+        return sdf.format(this.membershipDate);
     }
 
     public long getPassword()
@@ -142,19 +142,19 @@ public class Member
         this.password = password;
     }
 
-    public long getPassattempt()
+    public long getPasswordAttempt()
     {
-        return passattempt;
+        return passwordAttempt;
     }
 
-    public void setPassattempt(long passattempt)
+    public void setPasswordAttempt(long passwordAttempt)
     {
-        this.passattempt = passattempt;
+        this.passwordAttempt = passwordAttempt;
     }
     
     public boolean isAuthenticated() {
         if (password > 0) {
-            if (password == this.passattempt) {
+            if (password == this.passwordAttempt) {
                 return true;
             }
         }

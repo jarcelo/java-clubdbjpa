@@ -19,8 +19,8 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h4>Member ID: ${m.memid} </h4>
-                        <h4>Member Name: ${m.firstnm} ${m.lastnm}</h4>
+                        <h4>Member ID: ${m.memberId} </h4>
+                        <h4>Member Name: ${m.firstName} ${m.lastName}</h4>
                     </div>
                     <div class="col-sm-6">
                         <h4>${msg}</h4>
@@ -40,9 +40,9 @@
                 <c:forEach var="p" items="${pur}">
                     <tr>
                         <td class="text-left">${p.purchdtS}</td>
-                        <td class="text-left">${p.transtype}</td>
-                        <td class="text-left">${p.transcd}</td>
-                        <td class="text-left">${p.transdesc}</td>
+                        <td class="text-left">${p.transactionType}</td>
+                        <td class="text-left">${p.transactionCode}</td>
+                        <td class="text-left">${p.transactionDescription}</td>
                         <td class="text-left">${p.formattedAmount}</td>
                     </tr>
                 </c:forEach>

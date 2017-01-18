@@ -22,20 +22,20 @@ public class ClubLogonServlet extends HttpServlet
     {
         response.setContentType("text/html;charset=UTF-8");
         String msg = "";
-        String userid= "";
+        String memberId= "";
         String URL = "/Logon.jsp";
         long passwordatt = 0;
         Member m;
         
         try {
-            userid = request.getParameter("userid").trim();
+            memberId = request.getParameter("memberId").trim();
             passwordatt = Long.parseLong(request.getParameter("password").trim());
             
-            m = MemberDB.getMemberById(userid);
+            m = MemberDB.getMemberById(memberId);
             if (m == null) {
                 msg = "No member record returned.<br>";
             } else {
-                m.setPassattempt(passwordatt);
+                m.setPasswordAttempt(passwordatt);
                 if (!m.isAuthenticated()) {
                     msg = "Member found but not authenticated.<br>";
                 } else {
@@ -49,7 +49,7 @@ public class ClubLogonServlet extends HttpServlet
         }
        
         // Add cookie for userID
-        Cookie uid = new Cookie("userid", userid);
+        Cookie uid = new Cookie("userid", memberId);
         uid.setMaxAge(60*10);
         uid.setPath("/");
         response.addCookie(uid);

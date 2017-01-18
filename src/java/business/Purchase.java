@@ -27,23 +27,23 @@ public class Purchase
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long pid;
+    private long purchaseId;
     
     @Column(name = "MemId")
-    private String memid;
+    private String memberId;
     
     @Column(name = "PurchaseDt")
     @Temporal(TemporalType.DATE)
-    private Date purchdt;
+    private Date purchaseDate;
     
     @Column(name = "TransType")
-    private String transtype;
+    private String transactionType;
     
     @Column(name = "TransCd")
-    private String transcd;
+    private String transactionCode;
     
     @Column(name = "Amount")
-    private double amt;
+    private double amount;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TransCd", insertable = false, updatable = false)
@@ -51,82 +51,83 @@ public class Purchase
     
     public Purchase()
     {
-        this.memid = "";
-        this.purchdt = null;
-        this.transtype = "";
-        this.transcd = "";
-        this.amt = 0;
-        this.pid = 0;
+        this.memberId = "";
+        this.purchaseDate = null;
+        this.transactionType = "";
+        this.transactionCode = "";
+        this.amount = 0;
+        this.purchaseId = 0;
     }
 
-    public long getPid()
+    public long getPurchaseId()
     {
-        return pid;
+        return purchaseId;
     }
 
-    public void setPid(long pid)
+    public void setPurchaseId(long purchaseId)
     {
-        this.pid = pid;
+        this.purchaseId = purchaseId;
     }
 
-    public String getMemid()
+    public String getMemberId()
     {
-        return memid;
+        return memberId;
     }
 
-    public void setMemid(String memid)
+    public void setMemberId(String memberId)
     {
-        this.memid = memid;
+        this.memberId = memberId;
     }
 
-    public Date getPurchdt()
+    public Date getPurchaseDate()
     {
-        return purchdt;
+        return purchaseDate;
     }
 
     public String getPurchdtS() {
-        return new SimpleDateFormat("MM-dd-yyyy").format(this.purchdt);
+        return new SimpleDateFormat("MM-dd-yyyy").format(this.purchaseDate);
     }
-    public void setPurchdt(Date purchdt)
+    
+    public void setPurchaseDate(Date purchaseDate)
     {
-        this.purchdt = purchdt;
-    }
-
-    public String getTranstype()
-    {
-        return transtype;
+        this.purchaseDate = purchaseDate;
     }
 
-    public void setTranstype(String transtype)
+    public String getTransactionType()
     {
-        this.transtype = transtype;
+        return transactionType;
     }
 
-    public String getTranscd()
+    public void setTransactionType(String transactionType)
     {
-        return transcd;
+        this.transactionType = transactionType;
     }
 
-    public void setTranscd(String transcd)
+    public String getTransactionCode()
     {
-        this.transcd = transcd;
+        return transactionCode;
     }
 
-    public double getAmt()
+    public void setTransactionCode(String transactionCode)
     {
-        return amt;
+        this.transactionCode = transactionCode;
+    }
+
+    public double getAmount()
+    {
+        return amount;
     }
     
     public String getFormattedAmount() {
-        return NumberFormat.getCurrencyInstance().format(this.amt);
+        return NumberFormat.getCurrencyInstance().format(this.amount);
     }
 
-    public void setAmt(double amt)
+    public void setAmount(double amount)
     {
-        this.amt = amt;
+        this.amount = amount;
     }
     
-    public String getTransdesc() {
-        return codesrec.getTransdesc();
+    public String getTransactionDescription() {
+        return codesrec.getTransactionDescription();
     }
 }

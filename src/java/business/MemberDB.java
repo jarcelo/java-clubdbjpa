@@ -20,13 +20,13 @@ public class MemberDB
         }
     }
     
-    public static String updtMember(Member m) {
+    public static String updtMember(Member member) {
         String msg = "";
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
-            em.merge(m);
+            em.merge(member);
             trans.commit();
             msg += "Member profile successfully updated!<br>";
         } catch (Exception e) {
